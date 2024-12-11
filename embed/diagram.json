@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "author": "Eshaan Ramaul",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-pi-pico-w", "id": "pico1", "top": -12.84, "left": -236.3, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht1", "top": -153.3, "left": -427.8, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht2", "top": -157.96, "left": 15.98, "attrs": {} },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 80.75,
+      "left": -432,
+      "attrs": { "value": "10000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 90.35,
+      "left": 9.6,
+      "attrs": { "value": "10000" }
+    }
+  ],
+  "connections": [
+    [ "pico1:3V3", "dht1:VCC", "green", [ "h9.76", "v-67.21", "h-259.2" ] ],
+    [ "dht1:GND", "pico1:GND.1", "black", [ "v57.6", "h153.75" ] ],
+    [ "dht2:GND", "pico1:GND.2", "black", [ "v110.26", "h-290.03" ] ],
+    [ "dht2:VCC", "pico1:3V3", "green", [ "v0" ] ],
+    [ "dht1:VCC", "r1:1", "red", [ "h-28.8", "v124.8" ] ],
+    [ "dht1:SDA", "pico1:GP10", "violet", [ "v0" ] ],
+    [ "r1:2", "dht1:SDA", "red", [ "h8.4", "v-124.8" ] ],
+    [ "dht2:SDA", "r2:2", "red", [ "h45.92", "v139.06" ] ],
+    [ "dht2:VCC", "r2:1", "red", [ "h-30.98", "v139.06" ] ],
+    [ "pico1:GP15", "dht2:SDA", "violet", [ "v9.63", "h270.73" ] ]
+  ],
+  "dependencies": {}
+}
