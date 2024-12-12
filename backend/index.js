@@ -1,3 +1,4 @@
+require('dotenv').config(); // Load environment variables from .env
 const express = require('express');
 const bodyParser = require('body-parser');
 const { InfluxDB, Point } = require('@influxdata/influxdb-client');
@@ -7,11 +8,11 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 
-// InfluxDB configuration
-const INFLUX_URL = 'http://localhost:8086';
-const INFLUX_TOKEN = 'zUzV5nzVBGg2VUNqf9oocP2pXPU--VvhAA2yra44jGEadf2EiSoTfoqfbrOigc6KCFeDCSeaWEQiK94Kc9GreQ==';
-const INFLUX_ORG = 'LAB';
-const INFLUX_BUCKET = 'Smart Environmental Monitor';
+// InfluxDB configuration using environment variables
+const INFLUX_URL = process.env.INFLUX_URL;
+const INFLUX_TOKEN = process.env.INFLUX_TOKEN;
+const INFLUX_ORG = process.env.INFLUX_ORG;
+const INFLUX_BUCKET = process.env.INFLUX_BUCKET;
 
 const influxDB = new InfluxDB({ url: INFLUX_URL, token: INFLUX_TOKEN });
 const writeApi = influxDB.getWriteApi(INFLUX_ORG, INFLUX_BUCKET);
@@ -36,7 +37,7 @@ app.post('/api/data', (req, res) => {
 });
 
 // Start server
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Use PORT from .env or default to 3000
 app.listen(PORT, () => {
     console.log(`Backend running on http://localhost:${PORT}`);
 });
